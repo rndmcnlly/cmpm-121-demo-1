@@ -16,6 +16,23 @@ const div = document.createElement("div");
 div.innerHTML = divHead;
 app.append(div);
 
+const button = "🧅Click!"
+const mainButton = document.createElement("button")
+mainButton.innerHTML = button;
+app.append(mainButton);
+
+const abelEvent = new Event("abelEvent", {});
+
+// Help from TA Nicholas Nolasco
+mainButton.addEventListener("click", () => {
+  //let lines = [];
+  mainButton.dispatchEvent(abelEvent);
+});
+
+/*mainButton.addEventListener("abelEvent", () => {
+  console.log("Abel says hello!);
+});*/
+
 /*
 const buttonName = "Click for cookies"
 
@@ -26,3 +43,4 @@ header2.innerHTML = buttonName;
 app.append(header2);
 */
 //Click for cookies 🍪
+// 🧅ONIONS
