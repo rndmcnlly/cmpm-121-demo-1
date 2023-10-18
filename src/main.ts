@@ -11,7 +11,7 @@ app.append(header);
 
 let counter = 0;
 // Slightly smaller title text
-let divHead = `Wow what a great fun ${counter}` ;
+let divHead = `The score is ${counter}` ;
 const div = document.createElement("div");
 div.innerHTML = divHead;
 app.append(div);
@@ -26,7 +26,11 @@ app.append(mainButton);
 // Help from TA Nicholas Nolasco
 mainButton.addEventListener("click", () => {
   counter++;
-  divHead = `Wow what a great fun ${counter}` ;
+  divHead = `The score is ${counter}` ;
   div.innerHTML = divHead
 });
 
+//Auto clicking +1 
+setInterval(function() {counter += 1}, 1000);
+setInterval(function() {div.innerHTML = divHead}, 1000);
+setInterval(function() {divHead = `The score is ${counter}`}, 1000);
