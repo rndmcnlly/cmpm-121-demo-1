@@ -9,15 +9,28 @@ const header = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
+// Data-driven design
+interface Item {
+  name: string,
+  cost: number,
+  rate: number
+}
+
+const availableItems : Item[] = [
+  {name: "🔪Knife", cost: 10, rate: 0.1},
+  {name: "🥷🏼Ninja", cost: 100, rate: 2},
+  {name: "🤖Robot", cost: 1000, rate: 50},
+]
+
 // Initiate counter, growth rate, knives
 let counter = 0;
 let onionPerSec = 1;
 let knives = 0;
 let ninjas = 0;
 let robots = 0;
-let knifePrice = 10;
-let ninjaPrice = 100;
-let robotPrice = 1000;
+let knifePrice = availableItems[0].cost;
+let ninjaPrice = availableItems[1].cost;
+let robotPrice = availableItems[2].cost;
 
 // Slightly smaller title text
 let divHead = `The score is ${counter}, with growth rate ${onionPerSec.toPrecision(2)}` ;
@@ -32,17 +45,17 @@ mainButton.innerHTML = button;
 app.append(mainButton);
 
 // Buttons to increase growth rate of farming onions
-let knife = `🔪Add a knife!\n(Cost ${knifePrice}) Knives: ${knives}`;
+let knife = `Buy a ${availableItems[0].name}!\n(Cost ${knifePrice}) Knives: ${knives}`;
 const sideButton = document.createElement("button");
 sideButton.innerHTML = knife;
 app.append(sideButton);
 
-let ninja = `🥷🏼Get a ninja!!\n(Cost ${ninjaPrice}) Ninjas: ${ninjas}`;
+let ninja = `Buy a ${availableItems[1].name}!\n(Cost ${ninjaPrice}) Ninjas: ${ninjas}`;
 const sideButton2 = document.createElement("button");
 sideButton2.innerHTML = ninja;
 app.append(sideButton2);
 
-let robot = `🤖Start a ROBOT!!!\n(Cost ${robotPrice}) Robots: ${robots}`;
+let robot = `Buy a ${availableItems[2].name}!\n(Cost ${robotPrice}) Robots: ${robots}`;
 const sideButton3 = document.createElement("button");
 sideButton3.innerHTML = robot;
 app.append(sideButton3);
@@ -71,10 +84,10 @@ mainButton.addEventListener("click", () => {
 sideButton.addEventListener("click", () => {
   counter -= knifePrice;
   knifePrice *= 1.15;
-  onionPerSec += 0.1;
+  onionPerSec += availableItems[0].rate;
   knives++;
   divHead = `The score is ${counter.toPrecision(4)}, with growth rate ${onionPerSec.toPrecision(2)}`;
-  knife = `🔪Knife!\n(Cost ${knifePrice.toPrecision(4)}) Knives: ${knives}`;
+  knife = `Buy a ${availableItems[0].name}!\n(Cost ${knifePrice.toPrecision(4)}) Knives: ${knives}`;
   div.innerHTML = divHead;
   sideButton.innerHTML = knife;
 });
@@ -85,10 +98,10 @@ sideButton2.addEventListener("click", () => {
   if (counter < 100) {
     sideButton2.disabled = true;
   }
-  onionPerSec += 2;
+  onionPerSec += availableItems[1].rate;
   ninjas++;
   divHead = `The score is ${counter.toPrecision(4)}, with growth rate ${onionPerSec.toPrecision(2)}`;
-  ninja = `🥷🏼Ninja!!\n(Cost ${ninjaPrice.toPrecision(4)}) Ninjas: ${ninjas}`;
+  ninja = `Buy a ${availableItems[1].name}!\n(Cost ${ninjaPrice.toPrecision(4)}) Ninjas: ${ninjas}`;
   div.innerHTML = divHead;
   sideButton2.innerHTML = ninja;
 });
@@ -99,10 +112,10 @@ sideButton3.addEventListener("click", () => {
   if (counter < 1000) {
     sideButton3.disabled = true;
   }
-  onionPerSec += 50;
+  onionPerSec += availableItems[2].rate;
   robots++;
   divHead = `The score is ${counter.toPrecision(4)}, with growth rate ${onionPerSec}`;
-  robot = `🤖ROBOT!!!\n(Cost ${robotPrice.toPrecision(4)}) Robots: ${robots}`;
+  robot = `Buy a ${availableItems[2].name}!\n(Cost ${robotPrice.toPrecision(4)}) Robots: ${robots}`;
   div.innerHTML = divHead
   sideButton3.innerHTML = robot;
 });
