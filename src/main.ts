@@ -3,7 +3,7 @@ import "./style.css";
 const app: HTMLDivElement = document.querySelector("#app")!;
 
 // Game name
-const gameName = "Wow what a great Game";
+const gameName = "🧅Onion🔪Cutting🥷🏼simulator🤖";
 document.title = gameName;
 const header = document.createElement("h1");
 header.innerHTML = gameName;
@@ -26,23 +26,23 @@ div.innerHTML = divHead;
 app.append(div);
 
 // Button to farm🧅ONIONS
-const button = "🧅Click!"
+const button = "🧅CUT!😭"
 const mainButton = document.createElement("button")
 mainButton.innerHTML = button;
 app.append(mainButton);
 
 // Buttons to increase growth rate of farming onions
-let knife = `🔪Knife!\n(Cost ${knifePrice}) Knives: ${knives}`;
+let knife = `🔪Add a knife!\n(Cost ${knifePrice}) Knives: ${knives}`;
 const sideButton = document.createElement("button");
 sideButton.innerHTML = knife;
 app.append(sideButton);
 
-let ninja = `🥷🏼Ninja!!\n(Cost ${ninjaPrice}) Ninjas: ${ninjas}`;
+let ninja = `🥷🏼Get a ninja!!\n(Cost ${ninjaPrice}) Ninjas: ${ninjas}`;
 const sideButton2 = document.createElement("button");
 sideButton2.innerHTML = ninja;
 app.append(sideButton2);
 
-let robot = `🤖ROBOT!!!\n(Cost ${robotPrice}) Robots: ${robots}`;
+let robot = `🤖Start a ROBOT!!!\n(Cost ${robotPrice}) Robots: ${robots}`;
 const sideButton3 = document.createElement("button");
 sideButton3.innerHTML = robot;
 app.append(sideButton3);
