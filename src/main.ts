@@ -92,6 +92,26 @@ const availableItems: Item[] = [
   },
 ];
 
+//Function to update the text on the screen.
+function updateText() {
+  //Get any existing version of this text
+  const existingDiv = app.querySelector("div");
+  //Delete if it exists
+  if (existingDiv) {
+    app.removeChild(existingDiv);
+  }
+  const formatCounter = counter.toFixed(2);
+  const newDiv = document.createElement("div");
+  const cost = calculateCost();
+  const newContent = document.createTextNode(
+    `${formatCounter} Fish! 🐟 ${cost.toFixed(1)}Fish/sec`,
+  );
+  newDiv.appendChild(newContent);
+  app.append(newDiv);
+}
+//Run Once On Run
+updateText();
+
 //Start the check for autoclicks
 //setInterval(autoClicker, 1000);
 requestAnimationFrame(autoClicker);
@@ -141,6 +161,51 @@ function updateInvText() {
 //Append div where shop is
 app.appendChild(newDiv2);
 
+function setupButton(itemRefence: Item, index: number) {
+    itemRefence.buttonReference.textContent =
+      `${itemRefence.name} - ${itemRefence.cost.toFixed(0)} Fish`;
+    //Description declaration
+    const descriptionText = document.createElement("desc");
+    descriptionText.textContent = itemRefence.description;
+    descriptionText.style.position = "absolute";
+    descriptionText.hidden = true;
+    document.body.appendChild(descriptionText);
+    //Add Event Listeners --------
+    //On click attempt to purchase item
+    itemRefence.buttonReference.addEventListener(
+      "click",
+      function (event) {
+        purchaseButton(event, index);
+      },
+    );
+    // Hide and Show description based on if its inside the button or not
+    itemRefence.buttonReference.addEventListener(
+      "mouseenter",
+      function () {
+        descriptionText.hidden = false;
+      },
+    );
+    itemRefence.buttonReference.addEventListener(
+      "mouseleave",
+      function () {
+        descriptionText.hidden = true;
+      },
+    );
+    // Track Mouse for Description location only when hovering the button
+    itemRefence.buttonReference.addEventListener(
+      "mousemove",
+      function (event) {
+        if (!descriptionText.hidden) {
+          descriptionText.style.left = event.pageX + 10 + "px";
+          descriptionText.style.top = event.pageY + 10 + "px";
+        }
+      },
+    );
+
+    newDiv2.appendChild(itemRefence.buttonReference);
+    itemRefence.enabled = true;
+}
+
 function handleBuyButtons(index: number) {
   //If Button has been used before we will disable and reenable it based on current fish count
   if (availableItems[index].enabled) {
@@ -153,48 +218,7 @@ function handleBuyButtons(index: number) {
       availableItems[index].buttonReference.disabled = false;
   } else {
     //Otherwise create the button
-    availableItems[index].buttonReference.textContent =
-      `${availableItems[index].name} - ${availableItems[index].cost.toFixed(0)} Fish`;
-    //Description declaration
-    const descriptionText = document.createElement("desc");
-    descriptionText.textContent = availableItems[index].description;
-    descriptionText.style.position = "absolute";
-    descriptionText.hidden = true;
-    document.body.appendChild(descriptionText);
-    //Add Event Listeners --------
-    //On click attempt to purchase item
-    availableItems[index].buttonReference.addEventListener(
-      "click",
-      function (event) {
-        purchaseButton(event, index);
-      },
-    );
-    // Hide and Show description based on if its inside the button or not
-    availableItems[index].buttonReference.addEventListener(
-      "mouseenter",
-      function () {
-        descriptionText.hidden = false;
-      },
-    );
-    availableItems[index].buttonReference.addEventListener(
-      "mouseleave",
-      function () {
-        descriptionText.hidden = true;
-      },
-    );
-    // Track Mouse for Description location only when hovering the button
-    availableItems[index].buttonReference.addEventListener(
-      "mousemove",
-      function (event) {
-        if (!descriptionText.hidden) {
-          descriptionText.style.left = event.pageX + 10 + "px";
-          descriptionText.style.top = event.pageY + 10 + "px";
-        }
-      },
-    );
-
-    newDiv2.appendChild(availableItems[index].buttonReference);
-    availableItems[index].enabled = true;
+    setupButton(availableItems[index], index);
   }
 }
 
@@ -208,26 +232,6 @@ function purchaseButton(event: Event, index: number) {
         `${availableItems[index].name} - ${availableItems[index].cost.toFixed(0)} Fish`;
     }
   }
-}
-
-//Run Once On Run
-updateText();
-//Function to update the text on the screen.
-function updateText() {
-  //Get any existing version of this text
-  const existingDiv = app.querySelector("div");
-  //Delete if it exists
-  if (existingDiv) {
-    app.removeChild(existingDiv);
-  }
-  const formatCounter = counter.toFixed(2);
-  const newDiv = document.createElement("div");
-  const cost = calculateCost();
-  const newContent = document.createTextNode(
-    `${formatCounter} Fish! 🐟 ${cost.toFixed(1)}Fish/sec`,
-  );
-  newDiv.appendChild(newContent);
-  app.append(newDiv);
 }
 
 let saveLastTime: number | undefined;

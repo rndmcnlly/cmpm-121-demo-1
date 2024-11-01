@@ -63,13 +63,13 @@ button:focus-visible {
 }
 
 desc {
-  padding: .2em 0.4em;
+  padding: 0.2em 0.4em;
   font-size: 1em;
   background-color: aliceblue;
   font-weight: 500;
   font-family: inherit;
-  color: black; 
-  margin-top: 10px; 
+  color: black;
+  margin-top: 10px;
 }
 
 #background {
